@@ -1,0 +1,184 @@
+\documentclass[10pt, letterpaper]{article}
+
+% ---------- Fonts & layout ----------
+\usepackage[margin=1in]{geometry}
+\usepackage{fontspec}
+\usepackage{setspace}
+\usepackage{parskip}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{tabularx}
+\usepackage{hyperref}
+
+% Set SourceSans3 as the main font
+\setmainfont{SourceSans3}[
+  Path = ./sourceSans/,
+  Extension = .ttf,
+  UprightFont = *-Regular,
+  BoldFont = *-Bold,
+  ItalicFont = *-Italic,
+  BoldItalicFont = *-BoldItalic
+]
+
+% ---------- Colors ----------
+\definecolor{Primary}{RGB}{23,43,77}
+\definecolor{RuleGray}{gray}{0.25}
+\definecolor{lightblue}{RGB}{10, 132, 255}
+
+% ---------- PDF meta ----------
+% TEMPLATE: Replace with candidate's name
+\hypersetup {
+  pdftitle={Resume - CANDIDATE\_NAME},
+  pdfauthor={CANDIDATE\_NAME},
+  colorlinks=true,
+  linkcolor=lightblue,
+  urlcolor=lightblue,
+  citecolor=lightblue
+}
+
+
+% ---------- Section styling ----------
+\makeatletter
+\renewcommand{\section}{%
+  \@startsection{section}{1}{\z@}{10pt}{6pt}{%
+    \Large\bfseries\color{black}%
+  }%
+}
+\renewcommand{\@seccntformat}[1]{}
+\def\@sect#1#2#3#4#5#6[#7]#8{%
+  \ifnum #2>\c@secnumdepth
+    \let\@svsec\@empty
+  \else
+    \refstepcounter{#1}%
+    \let\@svsec\@empty
+  \fi
+  \begingroup
+    #6{%
+      \MakeUppercase{#8}\\[-4pt]%
+      \textcolor{RuleGray}{\rule{\linewidth}{0.5pt}}%
+    }%
+  \endgroup
+  \@xsect{#5}%
+}
+\makeatother
+
+
+% ---------- Lists ----------
+\setlength{\leftmargini}{0pt}
+\setlength{\itemindent}{0pt}
+\setlength{\itemsep}{3pt}
+\setlength{\topsep}{0pt}
+\setlength{\partopsep}{0pt}
+\setlength{\parsep}{0pt}
+
+% ---------- Small helpers ----------
+\newcommand{\bull}{\kern0.45em\textbullet\kern0.45em}
+\newcommand{\role}[1]{\textbf{#1}}
+\newcommand{\org}[1]{\textbf{#1}}
+\newcommand{\place}[1]{\textit{#1}}
+\newcommand{\blackLink}[2]{\href{#1}{\textcolor{black}{#2}}}
+\newcommand{\blueLink}[2]{\href{#1}{\textcolor{lightblue}{#2}}}
+% Template placeholder command - renders [PLACEHOLDER] without monospace font
+\newcommand{\placeholder}[1]{\lbrack #1\rbrack}
+
+
+% ---------- Header ----------
+% TEMPLATE: Header section - replace placeholders with actual contact information
+% Format: Name (large, bold) | Location | Email | Phone | LinkedIn | Website
+\makeatletter
+\renewcommand{\maketitle}{
+  \begin{center}
+    {\huge\bfseries \placeholder{CANDIDATE\_NAME}}\par\vspace{6pt}
+    {\color{Primary}
+      \placeholder{LOCATION} \bull
+      \blackLink{mailto:\placeholder{EMAIL}}{\placeholder{EMAIL}} \bull
+      \placeholder{PHONE} \bull
+      \blackLink{\placeholder{LINKEDIN\_URL}}{\placeholder{LINKEDIN\_HANDLE}} \bull
+      \blackLink{\placeholder{WEBSITE\_URL}}{\placeholder{WEBSITE\_DOMAIN}}
+    }
+  \end{center}
+  \vspace{-8pt}
+}
+\makeatother
+
+% ---------- Page Style ----------
+\pagestyle{empty} % Add this line to remove page numbers
+
+
+\begin{document}
+
+\maketitle
+\vspace{15pt}
+
+% ---------- SUMMARY ----------
+% TEMPLATE: Professional summary - 2-3 sentences highlighting key qualifications, experience level, and value proposition
+\section{Summary}
+\placeholder{Professional summary paragraph describing candidate's experience level, key skills, and career focus. Should be concise (2-3 sentences) and tailored to the target role.}
+
+
+% ---------- EXPERIENCE ----------
+% TEMPLATE: Work experience entries
+% Format: \role{Job Title} \hfill Start Date -- End Date \\
+%         \org{Company Name} \bull \href{URL}{Display URL} \hfill \place{City, State/Country}
+%         \begin{itemize}
+%           \item Achievement-focused bullet points (use \textbf{} for emphasis on key technologies/metrics)
+%         \end{itemize}
+%         \vspace{12pt} (between entries)
+\section{Experience}
+% Example entry structure - repeat this pattern for each position (most recent first):
+\role{\placeholder{JOB\_TITLE}} \hfill \placeholder{START\_DATE} -- \placeholder{END\_DATE} \\
+\org{\placeholder{COMPANY\_NAME}} \bull \href{\placeholder{COMPANY\_URL}}{\placeholder{COMPANY\_DOMAIN}} \hfill \place{\placeholder{LOCATION}}
+\begin{itemize}
+  \item \placeholder{Achievement-focused bullet point describing impact, technologies used, and quantifiable results when possible. Use \textbackslash textbf\{\} to emphasize key technologies or metrics.}
+  \item \placeholder{Additional bullet points following same format - typically 3-6 bullets per position}
+\end{itemize}
+\vspace{12pt}
+% Add more experience entries above this line, each separated by \vspace{12pt}
+
+
+% ---------- DYNAMIC SECTION / OPTIONAL SECTION ----------
+% AI AGENT INSTRUCTIONS:
+% These are DYNAMIC/OPTIONAL sections that can be ADDED, OMITTED, or MODIFIED based on the candidate's profile.
+% IMPORTANT: There can be AT MOST TWO dynamic/optional sections in the resume.
+% The AI agent processing this resume has full autonomy to:
+%   1. Decide whether to include 0, 1, or 2 dynamic sections (maximum of 2)
+%   2. Choose appropriate section names (e.g., "Projects", "Skills", "Publications", "Certifications", "Awards", "Volunteer Experience", etc.)
+%   3. Determine the content structure and format based on each section type
+%   4. Populate section content with appropriate items, names, and details
+%
+% Each section name should replace "Dynamic Section / Optional Section" with a meaningful title.
+% The content structure should be tailored to the section type chosen.
+% If a section is not relevant to the candidate, it may be omitted entirely (including the \section{} command).
+%
+% Example section types and formats:
+% - Projects: \org{Project Name} \bull [Type] \bull \href{URL}{Domain} \begin{itemize} ... \end{itemize}
+% - Skills: \textbf{Category:} Skill1, Skill2, ... \\
+% - Certifications: \textbf{Certification Name} \bull Issuing Organization \bull Date \\
+% - Publications: \org{Title} \bull \href{URL}{Journal/Conference} \bull Date \\
+% - Awards: \textbf{Award Name} \bull Organization \bull Date \\
+% - Volunteer Experience: Similar to Experience section format
+%
+% FIRST DYNAMIC/OPTIONAL SECTION:
+\section{Dynamic Section / Optional Section}
+
+% AI AGENT: Replace this placeholder content with appropriate section content.
+% Choose a section name and populate with relevant items based on the candidate's profile.
+% If this section is not applicable, remove the entire section (including the \section{} command above).
+\placeholder{[AI AGENT: Add appropriate content here based on chosen section type. This entire section may be omitted if not relevant to the candidate.]}
+
+% SECOND DYNAMIC/OPTIONAL SECTION (OPTIONAL - MAXIMUM OF 2 TOTAL):
+\section{Dynamic Section / Optional Section}
+
+% AI AGENT: Replace this placeholder content with appropriate section content.
+% Choose a section name and populate with relevant items based on the candidate's profile.
+% If this section is not applicable, remove the entire section (including the \section{} command above).
+% Remember: Maximum of 2 dynamic sections total. If you include this second section, ensure you have at most 2 dynamic sections in the resume.
+\placeholder{[AI AGENT: Add appropriate content here based on chosen section type. This entire section may be omitted if not relevant to the candidate.]}
+
+% ---------- EDUCATION ----------
+% TEMPLATE: Education entries
+% Format: \textbf{Degree Name} \bull Institution Name \bull Location \bull Graduation Year \bull GPA: X.XX/Scale
+% For multiple degrees, add additional lines separated by blank lines
+\section{Education}
+\textbf{\placeholder{DEGREE\_NAME}} \bull \placeholder{INSTITUTION\_NAME} \bull \placeholder{LOCATION} \bull \placeholder{GRADUATION\_YEAR} \bull GPA: \placeholder{GPA}/\placeholder{SCALE}
+
+\end{document}
